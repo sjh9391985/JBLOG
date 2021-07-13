@@ -30,7 +30,7 @@ public class UserRepository {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("password", password);
-		return sqlSession.selectOne("user.getAuth", map);
+		return sqlSession.selectOne("user.getId", map);
 	}
 
 }

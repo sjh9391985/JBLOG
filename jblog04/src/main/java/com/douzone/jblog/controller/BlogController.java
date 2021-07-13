@@ -27,6 +27,7 @@ import com.douzone.jblog.vo.PostVo;
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
+	
 	@Autowired
 	private ServletContext application;
 	@Autowired
@@ -41,33 +42,47 @@ public class BlogController {
 	@RequestMapping({ "", "/{pathNo1}", "/{pathNo1}/{pathNo2}" })
 	public String index(@PathVariable("id") String id, @PathVariable("pathNo1") Optional<Long> pathNo1,
 			@PathVariable("pathNo2") Optional<Long> pathNo2, Model model) {
+		
 		Long categoryNo = 0L;
 		Long postNo = 0L;
 
 		if (pathNo2.isPresent()) {
+			
 			categoryNo = pathNo1.get();
 			postNo = pathNo2.get();
+			
 		} else if (pathNo1.isPresent()) {
+			
 			categoryNo = pathNo1.get();
+			
 			PostVo postVo = postService.firstPost(categoryNo);
+			
 			if(postVo == null) {
 				postNo = 0L;
+				
 			} else {
 				postNo = (long) postVo.getNo();
 			}
+			
 		} else {
+			
 			CategoryVo categoryVo = categoryService.firstCategory(id);
+			
 			if(categoryVo == null) {
 				categoryNo = 0L;
+				
 			} else {
 				categoryNo = (long) categoryVo.getNo();
 			}
+			
 			PostVo postVo = postService.firstPost(categoryNo);
+			
 			if(postVo == null) {
 				postNo = 0L;
 			} else {
 				postNo = (long) postVo.getNo();
 			}
+			
 		}
 		
 		BlogVo blogVo = blogService.findBlog(id);
@@ -80,13 +95,16 @@ public class BlogController {
 		model.addAttribute("postList", postList);
 		model.addAttribute("postVo",postVo);
 		application.setAttribute("blogvo", blogVo);
+		
 		return "blog/main";
 	}
+	
 	@Auth
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String id) {
 		return "blog/admin/basic";
 	}
+	
 	@Auth
 	@RequestMapping("/admin/category")
 	public String adminCategory(@PathVariable("id") String id, Model model) {
@@ -94,6 +112,7 @@ public class BlogController {
 		model.addAttribute("categoryList",categoryList);
 		return "blog/admin/category";
 	}
+	
 	@Auth
 	@RequestMapping("/admin/addcategory")
 	public String adminAddCategory(@PathVariable("id") String id, CategoryVo vo) {
@@ -101,6 +120,7 @@ public class BlogController {
 		categoryService.addCategory(vo);
 		return "redirect:/" + id + "/admin/category";
 	}
+	
 	@Auth
 	@RequestMapping(value = "/admin/write" , method = RequestMethod.GET)
 	public String adminWrite(@PathVariable("id") String id, Model model) {
@@ -108,12 +128,14 @@ public class BlogController {
 		model.addAttribute("categoryList",categoryList);
 		return "blog/admin/write";
 	}
+	
 	@Auth
 	@RequestMapping(value = "/admin/write", method = RequestMethod.POST)
 	public String adminWrite(@PathVariable("id") String id, PostVo postVo, Model model) {
 		postService.addPost(postVo);
 		return "redirect:/" + id;
 	}
+	
 	@Auth
 	@RequestMapping(value = "/admin/deletecategory", method = RequestMethod.GET)
 	public String deleteCategory(@PathVariable("id") String id, @RequestParam("no") int no ) {
@@ -121,6 +143,7 @@ public class BlogController {
 		categoryService.deleteCategory(no);
 		return "redirect:/" + id + "/admin/category";
 	}
+	
 	@Auth
 	@RequestMapping(value = "/admin/update", method = RequestMethod.POST)
 	public String deleteCategory(@PathVariable("id") String id, 

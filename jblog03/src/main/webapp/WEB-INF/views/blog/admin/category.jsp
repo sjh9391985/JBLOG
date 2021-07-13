@@ -31,7 +31,7 @@
 		      		<tr>
 		      			<td colspan="5">
 				      		<p align="center">
-				      			<br><br>↓↓↓ 카테고리를 <strong>추가</strong> 해주세요. ↓↓↓<br><br><br>
+				      			<br><br> 카테고리를 <strong>추가</strong> 해주세요. <br><br><br>
 				      		</p>
 			      		</td>
 		      		</tr>

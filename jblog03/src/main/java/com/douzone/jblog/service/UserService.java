@@ -15,10 +15,6 @@ public class UserService {
 		userRepository.insert(vo);
 	}
 
-	public UserVo findByIdandPassword(UserVo vo) {
-		return userRepository.findByIdandPassword(vo);
-	}
-
 	public UserVo getUser(String id) {
 		return userRepository.getUser(id);
 	}
@@ -26,5 +22,8 @@ public class UserService {
 	public UserVo getUser(String id, String password) {
 		return userRepository.getUser(id, password);
 	}
-
+	
+	public UserVo findByIdandPassword(UserVo vo) {
+		return userRepository.findByIdandPassword(vo);
+	}
 }

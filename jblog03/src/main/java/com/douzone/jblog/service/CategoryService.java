@@ -10,6 +10,7 @@ import com.douzone.jblog.vo.CategoryVo;
 
 @Service
 public class CategoryService {
+	
 	@Autowired
 	private CategoryRepository categoryRepository;
 
